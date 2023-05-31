@@ -29,6 +29,11 @@ class DatabaseStub(object):
                 request_serializer=database__pb2.StopServerParams.SerializeToString,
                 response_deserializer=database__pb2.StopServerReturn.FromString,
                 )
+        self.Register = channel.unary_unary(
+                '/unary.Database/Register',
+                request_serializer=database__pb2.RegisterParams.SerializeToString,
+                response_deserializer=database__pb2.RegisterReturns.FromString,
+                )
 
 
 class DatabaseServicer(object):
@@ -52,6 +57,12 @@ class DatabaseServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def Register(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_DatabaseServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -69,6 +80,11 @@ def add_DatabaseServicer_to_server(servicer, server):
                     servicer.StopServer,
                     request_deserializer=database__pb2.StopServerParams.FromString,
                     response_serializer=database__pb2.StopServerReturn.SerializeToString,
+            ),
+            'Register': grpc.unary_unary_rpc_method_handler(
+                    servicer.Register,
+                    request_deserializer=database__pb2.RegisterParams.FromString,
+                    response_serializer=database__pb2.RegisterReturns.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -128,5 +144,22 @@ class Database(object):
         return grpc.experimental.unary_unary(request, target, '/unary.Database/StopServer',
             database__pb2.StopServerParams.SerializeToString,
             database__pb2.StopServerReturn.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Register(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/unary.Database/Register',
+            database__pb2.RegisterParams.SerializeToString,
+            database__pb2.RegisterReturns.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -7,6 +7,7 @@ service Database{
     rpc Insert(InsertParams) returns (InsertReturn) {}
     rpc Get(GetParams) returns (GetReturn) {}
     rpc StopServer(StopServerParams) returns (StopServerReturn) {}
+    rpc Register(RegisterParams) returns (RegisterReturns) {}
 }
 
 message InsertParams{
@@ -33,3 +34,12 @@ message StopServerReturn{
 }
 
 message StopServerParams{}
+
+message RegisterParams{
+    string address = 9;
+    int32 port = 10;
+}
+
+message RegisterReturns{
+    int32 numOfIds = 11;
+}

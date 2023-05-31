@@ -33,6 +33,14 @@ class DatabaseClient(object):
         message = pb2.InsertParams(id=id, description=description, value=value)
         result = self.stub.Insert(message)
         return result
+    
+    def register(self, address, port):
+        """
+        Client function to call the rpc for Register
+        """
+        message = pb2.RegisterParams(address=address, port=port)
+        result = self.stub.Register(message)
+        return result
 
     def stopServer(self):
         """
@@ -97,6 +105,9 @@ if __name__ == '__main__':
         elif(treatedInput[0] == "C"):
             result = client.get(treatedInput[1])
             print(result[0], result[1])
+        elif(treatedInput[0] == "R"):
+            result = client.register(treatedInput[1], treatedInput[2])
+            print(result)
         elif(treatedInput[0] == "EOF"):
             break
         else:

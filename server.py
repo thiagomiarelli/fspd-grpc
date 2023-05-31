@@ -50,6 +50,12 @@ class DatabaseService(pb2_grpc.DatabaseServicer):
         """
         self.server.stop(5)
 
+    def Register(self, request, context):
+        """
+        Register server
+        """
+        return pb2.RegisterReturns(numOfIds=4)
+
     def serve(self):
         self.server.start()
         self.server.wait_for_termination()
