@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0e\x64\x61tabase.proto\x12\x05unary\">\n\x0cInsertParams\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\x02\"\x1f\n\x0cInsertReturn\x12\x0f\n\x07\x65xisted\x18\x04 \x01(\x05\"\x17\n\tGetParams\x12\n\n\x02id\x18\x05 \x01(\x05\"/\n\tGetReturn\x12\x13\n\x0b\x64\x65scription\x18\x06 \x01(\t\x12\r\n\x05value\x18\x07 \x01(\x02\x32m\n\x08\x44\x61tabase\x12\x34\n\x06Insert\x12\x13.unary.InsertParams\x1a\x13.unary.InsertReturn\"\x00\x12+\n\x03Get\x12\x10.unary.GetParams\x1a\x10.unary.GetReturn\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0e\x64\x61tabase.proto\x12\x05unary\">\n\x0cInsertParams\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\x02\"\x1f\n\x0cInsertReturn\x12\x0f\n\x07\x65xisted\x18\x04 \x01(\x05\"\x17\n\tGetParams\x12\n\n\x02id\x18\x05 \x01(\x05\"/\n\tGetReturn\x12\x13\n\x0b\x64\x65scription\x18\x06 \x01(\t\x12\r\n\x05value\x18\x07 \x01(\x02\"%\n\x10StopServerReturn\x12\x11\n\tnumOfKeys\x18\x08 \x01(\x05\"\x12\n\x10StopServerParams2\xaf\x01\n\x08\x44\x61tabase\x12\x34\n\x06Insert\x12\x13.unary.InsertParams\x1a\x13.unary.InsertReturn\"\x00\x12+\n\x03Get\x12\x10.unary.GetParams\x1a\x10.unary.GetReturn\"\x00\x12@\n\nStopServer\x12\x17.unary.StopServerParams\x1a\x17.unary.StopServerReturn\"\x00\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'database_pb2', globals())
@@ -28,6 +28,10 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _GETPARAMS._serialized_end=145
   _GETRETURN._serialized_start=147
   _GETRETURN._serialized_end=194
-  _DATABASE._serialized_start=196
-  _DATABASE._serialized_end=305
+  _STOPSERVERRETURN._serialized_start=196
+  _STOPSERVERRETURN._serialized_end=233
+  _STOPSERVERPARAMS._serialized_start=235
+  _STOPSERVERPARAMS._serialized_end=253
+  _DATABASE._serialized_start=256
+  _DATABASE._serialized_end=431
 # @@protoc_insertion_point(module_scope)

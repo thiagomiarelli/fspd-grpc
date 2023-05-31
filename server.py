@@ -35,6 +35,14 @@ class DatabaseService(pb2_grpc.DatabaseServicer):
         else:
             return pb2.GetReturn(description=None, value=0.0)
 
+    def StopServer(self, request, context):
+        """
+        Stop server
+        """
+        numberOfEntries = len(self.data)
+        print(f'Stopping server with {numberOfEntries} entries in database')
+        return pb2.StopServerReturn(numOfKeys=numberOfEntries)
+
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     pb2_grpc.add_DatabaseServicer_to_server(DatabaseService(), server)
