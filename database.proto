@@ -1,0 +1,28 @@
+
+syntax = "proto3";
+
+package unary;
+
+service Database{
+    rpc Insert(InsertParams) returns (InsertReturn) {}
+    rpc Get(GetParams) returns (GetReturn) {}
+}
+
+message InsertParams{
+ int32 id = 1;
+ string description = 2;
+ float value = 3;
+}
+
+message InsertReturn{
+    int32 existed = 4;
+}
+
+message GetParams{
+    int32 id = 5;
+}
+
+message GetReturn{
+    string description = 6;
+    float value = 7;
+}
