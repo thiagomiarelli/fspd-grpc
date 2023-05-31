@@ -9,6 +9,10 @@ class DatabaseService(pb2_grpc.DatabaseServicer):
 
     def __init__(self, *args, **kwargs):
         self.data = {}
+        self.server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+        pb2_grpc.add_DatabaseServicer_to_server(self, self.server)
+        self.server.add_insecure_port('[::]:50051')
+
 
     def Insert(self, request, context):
         """
@@ -43,13 +47,11 @@ class DatabaseService(pb2_grpc.DatabaseServicer):
         print(f'Stopping server with {numberOfEntries} entries in database')
         return pb2.StopServerReturn(numOfKeys=numberOfEntries)
 
-def serve():
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    pb2_grpc.add_DatabaseServicer_to_server(DatabaseService(), server)
-    server.add_insecure_port('[::]:50051')
-    server.start()
-    server.wait_for_termination()
+    def serve(self):
+        self.server.start()
+        self.server.wait_for_termination()
 
 
 if __name__ == '__main__':
-    serve()
+    server = DatabaseService()
+    server.serve()
