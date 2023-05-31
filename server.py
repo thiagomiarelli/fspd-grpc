@@ -1,6 +1,7 @@
 import grpc
 from concurrent import futures
 import time
+import sys
 import database_pb2_grpc as pb2_grpc
 import database_pb2 as pb2
 
@@ -11,7 +12,8 @@ class DatabaseService(pb2_grpc.DatabaseServicer):
         self.data = {}
         self.server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
         pb2_grpc.add_DatabaseServicer_to_server(self, self.server)
-        self.server.add_insecure_port('[::]:50051')
+        self.server.add_insecure_port('[::]:{}'.format(args[0]))
+        print("Server started on port {}".format(args[0]))
 
 
     def Insert(self, request, context):
@@ -54,5 +56,9 @@ class DatabaseService(pb2_grpc.DatabaseServicer):
 
 
 if __name__ == '__main__':
-    server = DatabaseService()
+    if(len(sys.argv) != 2):
+        print("Usage: python3 server.py <port>")
+        exit(1)
+    port = sys.argv[1]
+    server = DatabaseService(port)
     server.serve()

@@ -1,4 +1,5 @@
 import grpc
+import sys
 import database_pb2_grpc as pb2_grpc
 import database_pb2 as pb2
 
@@ -8,13 +9,10 @@ class DatabaseClient(object):
     Client for gRPC functionality
     """
 
-    def __init__(self):
-        self.host = 'localhost'
-        self.server_port = 50051
+    def __init__(self, address):
 
         # instantiate a channel
-        self.channel = grpc.insecure_channel(
-            '{}:{}'.format(self.host, self.server_port))
+        self.channel = grpc.insecure_channel(address)
 
         # bind the client and the server
         self.stub = pb2_grpc.DatabaseStub(self.channel)
@@ -81,7 +79,12 @@ def handleUserInput():
         
 
 if __name__ == '__main__':
-    client = DatabaseClient()
+    if(len(sys.argv) != 2):
+        print("Usage: python3 client.py <address:port>")
+        exit(1)
+    address = sys.argv[1]
+
+    client = DatabaseClient(address)
     treatedInput = handleUserInput()
 
     while(treatedInput[0] != "T"):
@@ -93,7 +96,7 @@ if __name__ == '__main__':
             print(result[0], result[1])
         else:
             print("Invalid command")
-            
+
         treatedInput = handleUserInput()
 
     if(treatedInput[0] == "T"):
