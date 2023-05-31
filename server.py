@@ -18,22 +18,17 @@ class DatabaseService(pb2_grpc.DatabaseServicer):
         """
         Insert data into database
         """
-        print(f'Inserting {request.id} into database')
         exists = 0
-        print("chegou aqui1 ")
         if request.id in self.data:
             exists = 1
 
         self.data[request.id] = (request.description, request.value)
-        print(f"data {self.data}")
-        print(f"exists {exists}")
         return pb2.InsertReturn(existed=exists)
 
     def Get(self, request, context):
         """
         Get data from database
         """
-        print(f'Getting {request.id} from database')
         if request.id in self.data:
             return pb2.GetReturn(description=self.data[request.id][0], value=self.data[request.id][1])
         else:
@@ -44,8 +39,14 @@ class DatabaseService(pb2_grpc.DatabaseServicer):
         Stop server
         """
         numberOfEntries = len(self.data)
-        print(f'Stopping server with {numberOfEntries} entries in database')
+        self.stopConnection()
         return pb2.StopServerReturn(numOfKeys=numberOfEntries)
+
+    def stopConnection(self):
+        """
+        Stops connection after a period of time to let the server answer the client before it closes
+        """
+        self.server.stop(5)
 
     def serve(self):
         self.server.start()
