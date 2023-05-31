@@ -44,37 +44,40 @@ class DatabaseClient(object):
 
 
 def handleUserInput():
-    inputString = input("Enter your command: ")
-    inputList = inputString.split(",")
-    
-    if(len(inputList) < 1):
-        return -1
-    
-    command = inputList[0]
-    if(command == "I"):
-        if(len(inputList) != 4):
-            return -1
-        id = int(inputList[1])
-        description = inputList[2]
-        value = float(inputList[3])
-        return (command, id, description, value)
-    elif(command == "C"):
-        if(len(inputList) != 2):
-            return (-1)
-        id = int(inputList[1])
-        return (command, id)
-    elif(command == "R"):
-        if(len(inputList) != 3):
-            return (-1)
-        name = inputList[1]
-        port = int(inputList[2])
-        return (command, name, port)
-    elif(command == "T"):
-        if(len(inputList) != 1):
-            return (-1)
-        return (command)
-    else:
-        return (-1)
+    try:
+        inputString = input("Enter your command: ")
+        inputList = inputString.split(",")
+        
+        if(len(inputList) < 1):
+            return [-1]
+        
+        command = inputList[0]
+        if(command == "I"):
+            if(len(inputList) != 4):
+                return [-1]
+            id = int(inputList[1])
+            description = inputList[2]
+            value = float(inputList[3])
+            return (command, id, description, value)
+        elif(command == "C"):
+            if(len(inputList) != 2):
+                return [-1]
+            id = int(inputList[1])
+            return (command, id)
+        elif(command == "R"):
+            if(len(inputList) != 3):
+                return [-1]
+            name = inputList[1]
+            port = int(inputList[2])
+            return (command, name, port)
+        elif(command == "T"):
+            if(len(inputList) != 1):
+                return [-1]
+            return (command)
+        else:
+            return [-1]
+    except EOFError:
+        return ["EOF"]
 
         
 
@@ -94,6 +97,8 @@ if __name__ == '__main__':
         elif(treatedInput[0] == "C"):
             result = client.get(treatedInput[1])
             print(result[0], result[1])
+        elif(treatedInput[0] == "EOF"):
+            break
         else:
             print("Invalid command")
 

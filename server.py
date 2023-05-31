@@ -54,6 +54,13 @@ class DatabaseService(pb2_grpc.DatabaseServicer):
         self.server.start()
         self.server.wait_for_termination()
 
+    def connectAsClient(self, address):
+        """
+        Connects to another server as a client
+        """
+        channel = grpc.insecure_channel(address)
+        stub = pb2_grpc.DatabaseStub(channel)
+        return stub
 
 if __name__ == '__main__':
     if(len(sys.argv) != 2):
