@@ -28,6 +28,19 @@ class IntegrationService(pb2_grpc.IntegrationServicer):
         else:
             return pb2.GetReturn(address=None, port=0)
 
+    def RegisterIntegration(self, request, context):
+        """
+        Register server
+        """
+        address = request.address
+        port = request.port
+        ids = request.ids
+
+        for id in ids:
+            self.data[id] = (address, port)
+        
+        return pb2.RegisterIntegrationReturn(numOfIds=len(ids))
+
 if __name__ == '__main__':
     if(len(sys.argv) != 2):
         print("Usage: python3 integrationServer.py <port>")

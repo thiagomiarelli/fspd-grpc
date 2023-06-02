@@ -24,6 +24,14 @@ class IntegrationClient(object):
         result = self.stub.Get(message)
         return (result.address, result.port)
 
+    def registerIntegration(self, address, port, ids):
+        """
+        Client function to call the rpc for Register
+        """
+        message = pb2.RegisterIntegrationParams(address=address, port=port, ids=ids)
+        result = self.stub.RegisterIntegration(message)
+        return result
+
 
 if __name__ == '__main__':
     if(len(sys.argv) != 2):
@@ -33,3 +41,5 @@ if __name__ == '__main__':
     client = IntegrationClient(address)
     client.get(1)
     print(client.get(1))
+    client.registerIntegration("localhost", 5000, [2,3,4])
+    print(client.get(2))
