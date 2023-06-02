@@ -1,0 +1,35 @@
+
+syntax = "proto3";
+
+package unary;
+
+service Integration{
+    rpc RegisterIntegration(RegisterIntegrationParams) returns (RegisterIntegrationReturn) {}
+    rpc Get(GetParams) returns (GetReturn) {}
+    rpc StopServer(StopServerParams) returns (StopServerReturn) {}
+}
+
+message RegisterIntegrationParams{
+    string address = 1;
+    int32 port = 2;
+    repeated int32 ids = 3;
+}
+
+message RegisterIntegrationReturn{
+    int32 numOfIds = 4;
+}
+
+message GetParams{
+    int32 id = 5;
+}
+
+message GetReturn{
+    string address = 6;
+    int32 port = 7;
+}
+
+message StopServerParams{}
+
+message StopServerReturn{
+    int32 numOfIds = 8;
+}
