@@ -57,10 +57,10 @@ class DatabaseService(pb2_grpc.DatabaseServicer):
         """
         Register server
         """
-        integrationServer = IntegrationClient(f'localhost:3001')
+        integrationServer = IntegrationClient(f'{request.address}:{request.port}')
         ids = list(self.data.keys())
 
-        result = integrationServer.registerIntegration("localhost", 50051, [])
+        result = integrationServer.registerIntegration(self.address, self.port, [])
         result = result.numOfIds
         integrationServer.channel.close()
 

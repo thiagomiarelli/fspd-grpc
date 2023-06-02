@@ -30,7 +30,6 @@ class IntegrationClient(object):
         """
         message = pb2.RegisterIntegrationParams(address=address, port=port, ids=[1,2,3])
         result = self.stub.RegisterIntegration(message)
-        print(result)
         return result
 
     def stopServer(self):
