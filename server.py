@@ -60,10 +60,9 @@ class DatabaseService(pb2_grpc.DatabaseServicer):
         integrationServer = IntegrationClient(f'{request.address}:{request.port}')
         ids = list(self.data.keys())
 
-        result = integrationServer.registerIntegration(self.address, self.port, [])
+        result = integrationServer.registerIntegration(self.address, self.port, ids)
         result = result.numOfIds
         integrationServer.channel.close()
-
         return pb2.RegisterReturns(numOfIds=result)
 
     def serve(self):

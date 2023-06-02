@@ -107,7 +107,7 @@ if __name__ == '__main__':
             print(result[0], result[1])
         elif(treatedInput[0] == "R"):
             result = client.register(treatedInput[1], treatedInput[2])
-            print(result)
+            print(result.numOfIds)
         elif(treatedInput[0] == "EOF"):
             break
         else:

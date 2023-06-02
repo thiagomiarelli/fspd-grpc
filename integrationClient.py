@@ -28,7 +28,7 @@ class IntegrationClient(object):
         """
         Client function to call the rpc for Register
         """
-        message = pb2.RegisterIntegrationParams(address=address, port=port, ids=[1,2,3])
+        message = pb2.RegisterIntegrationParams(address=address, port=port, ids=ids)
         result = self.stub.RegisterIntegration(message)
         return result
 
@@ -74,7 +74,6 @@ if __name__ == '__main__':
         exit(1)
     address = sys.argv[1]
     client = IntegrationClient(address)
-    client.registerIntegration("localhost", 50051, [])
     treatedInput = handleUserInput()
 
     while(treatedInput[0] != "T"):
