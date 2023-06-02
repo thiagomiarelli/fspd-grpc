@@ -41,6 +41,20 @@ class IntegrationService(pb2_grpc.IntegrationServicer):
         
         return pb2.RegisterIntegrationReturn(numOfIds=len(ids))
 
+    def StopServer(self, request, context):
+        """
+        Stop server
+        """
+        numberOfEntries = len(self.data)
+        self.stopConnection()
+        return pb2.StopServerReturn(numOfIds=numberOfEntries)
+
+    def stopConnection(self):
+        """
+        Stops connection after a period of time to let the server answer the client before it closes
+        """
+        self.server.stop(5)
+
 if __name__ == '__main__':
     if(len(sys.argv) != 2):
         print("Usage: python3 integrationServer.py <port>")

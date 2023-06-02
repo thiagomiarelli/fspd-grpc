@@ -32,6 +32,16 @@ class IntegrationClient(object):
         result = self.stub.RegisterIntegration(message)
         return result
 
+    def close(self):
+        """
+        Close the gRPC channel
+        """
+        message = pb2.StopServerParams()
+        result = self.stub.StopServer(message)
+        return result
+        
+
+
 
 if __name__ == '__main__':
     if(len(sys.argv) != 2):
@@ -43,3 +53,4 @@ if __name__ == '__main__':
     print(client.get(1))
     client.registerIntegration("localhost", 5000, [2,3,4])
     print(client.get(2))
+    print(client.close())
