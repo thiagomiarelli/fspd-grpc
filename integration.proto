@@ -5,8 +5,8 @@ package unary;
 
 service Integration{
     rpc RegisterIntegration(RegisterIntegrationParams) returns (RegisterIntegrationReturn) {}
-    rpc Get(GetParams) returns (GetReturn) {}
-    rpc StopServer(StopServerParams) returns (StopServerReturn) {}
+    rpc GetIntegration(GetIntegrationParams) returns (GetIntegrationReturn) {}
+    rpc StopIntegrationServer(StopIntegrationServerParams) returns (StopIntegrationServerReturn) {}
 }
 
 message RegisterIntegrationParams{
@@ -19,17 +19,17 @@ message RegisterIntegrationReturn{
     int32 numOfIds = 4;
 }
 
-message GetParams{
+message GetIntegrationParams{
     int32 id = 5;
 }
 
-message GetReturn{
+message GetIntegrationReturn{
     string address = 6;
     int32 port = 7;
 }
 
-message StopServerParams{}
+message StopIntegrationServerParams{}
 
-message StopServerReturn{
+message StopIntegrationServerReturn{
     int32 numOfIds = 8;
 }

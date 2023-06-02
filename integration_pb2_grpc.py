@@ -19,15 +19,15 @@ class IntegrationStub(object):
                 request_serializer=integration__pb2.RegisterIntegrationParams.SerializeToString,
                 response_deserializer=integration__pb2.RegisterIntegrationReturn.FromString,
                 )
-        self.Get = channel.unary_unary(
-                '/unary.Integration/Get',
-                request_serializer=integration__pb2.GetParams.SerializeToString,
-                response_deserializer=integration__pb2.GetReturn.FromString,
+        self.GetIntegration = channel.unary_unary(
+                '/unary.Integration/GetIntegration',
+                request_serializer=integration__pb2.GetIntegrationParams.SerializeToString,
+                response_deserializer=integration__pb2.GetIntegrationReturn.FromString,
                 )
-        self.StopServer = channel.unary_unary(
-                '/unary.Integration/StopServer',
-                request_serializer=integration__pb2.StopServerParams.SerializeToString,
-                response_deserializer=integration__pb2.StopServerReturn.FromString,
+        self.StopIntegrationServer = channel.unary_unary(
+                '/unary.Integration/StopIntegrationServer',
+                request_serializer=integration__pb2.StopIntegrationServerParams.SerializeToString,
+                response_deserializer=integration__pb2.StopIntegrationServerReturn.FromString,
                 )
 
 
@@ -40,13 +40,13 @@ class IntegrationServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def Get(self, request, context):
+    def GetIntegration(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def StopServer(self, request, context):
+    def StopIntegrationServer(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -60,15 +60,15 @@ def add_IntegrationServicer_to_server(servicer, server):
                     request_deserializer=integration__pb2.RegisterIntegrationParams.FromString,
                     response_serializer=integration__pb2.RegisterIntegrationReturn.SerializeToString,
             ),
-            'Get': grpc.unary_unary_rpc_method_handler(
-                    servicer.Get,
-                    request_deserializer=integration__pb2.GetParams.FromString,
-                    response_serializer=integration__pb2.GetReturn.SerializeToString,
+            'GetIntegration': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetIntegration,
+                    request_deserializer=integration__pb2.GetIntegrationParams.FromString,
+                    response_serializer=integration__pb2.GetIntegrationReturn.SerializeToString,
             ),
-            'StopServer': grpc.unary_unary_rpc_method_handler(
-                    servicer.StopServer,
-                    request_deserializer=integration__pb2.StopServerParams.FromString,
-                    response_serializer=integration__pb2.StopServerReturn.SerializeToString,
+            'StopIntegrationServer': grpc.unary_unary_rpc_method_handler(
+                    servicer.StopIntegrationServer,
+                    request_deserializer=integration__pb2.StopIntegrationServerParams.FromString,
+                    response_serializer=integration__pb2.StopIntegrationServerReturn.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -98,7 +98,7 @@ class Integration(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def Get(request,
+    def GetIntegration(request,
             target,
             options=(),
             channel_credentials=None,
@@ -108,14 +108,14 @@ class Integration(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/unary.Integration/Get',
-            integration__pb2.GetParams.SerializeToString,
-            integration__pb2.GetReturn.FromString,
+        return grpc.experimental.unary_unary(request, target, '/unary.Integration/GetIntegration',
+            integration__pb2.GetIntegrationParams.SerializeToString,
+            integration__pb2.GetIntegrationReturn.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def StopServer(request,
+    def StopIntegrationServer(request,
             target,
             options=(),
             channel_credentials=None,
@@ -125,8 +125,8 @@ class Integration(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/unary.Integration/StopServer',
-            integration__pb2.StopServerParams.SerializeToString,
-            integration__pb2.StopServerReturn.FromString,
+        return grpc.experimental.unary_unary(request, target, '/unary.Integration/StopIntegrationServer',
+            integration__pb2.StopIntegrationServerParams.SerializeToString,
+            integration__pb2.StopIntegrationServerReturn.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

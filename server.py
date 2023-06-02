@@ -4,12 +4,15 @@ import time
 import sys
 import database_pb2_grpc as pb2_grpc
 import database_pb2 as pb2
+from integrationClient import IntegrationClient
 
 
 class DatabaseService(pb2_grpc.DatabaseServicer):
 
     def __init__(self, *args, **kwargs):
         self.data = {}
+        self.port = int(args[0])
+        self.address = "localhost"
         self.server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
         pb2_grpc.add_DatabaseServicer_to_server(self, self.server)
         self.server.add_insecure_port('[::]:{}'.format(args[0]))
@@ -54,19 +57,18 @@ class DatabaseService(pb2_grpc.DatabaseServicer):
         """
         Register server
         """
-        return pb2.RegisterReturns(numOfIds=4)
+        integrationServer = IntegrationClient(f'localhost:3001')
+        ids = list(self.data.keys())
+
+        result = integrationServer.registerIntegration("localhost", 50051, [])
+        result = result.numOfIds
+        integrationServer.channel.close()
+
+        return pb2.RegisterReturns(numOfIds=result)
 
     def serve(self):
         self.server.start()
         self.server.wait_for_termination()
-
-    def connectAsClient(self, address):
-        """
-        Connects to another server as a client
-        """
-        channel = grpc.insecure_channel(address)
-        stub = pb2_grpc.DatabaseStub(channel)
-        return stub
 
 if __name__ == '__main__':
     if(len(sys.argv) != 2):
