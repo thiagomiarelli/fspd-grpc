@@ -32,13 +32,38 @@ class IntegrationClient(object):
         result = self.stub.RegisterIntegration(message)
         return result
 
-    def close(self):
+    def stopServer(self):
         """
         Close the gRPC channel
         """
         message = pb2.StopServerParams()
         result = self.stub.StopServer(message)
         return result
+
+def handleUserInput():
+    inputString = input("Enter your command: ")
+    inputList = inputString.split(",")
+        
+    try:
+        if(len(inputList) < 1):
+            return [-1]
+        
+        command = inputList[0]
+        if(command == "C"):
+            if(len(inputList) != 2):
+                return [-1]
+            id = int(inputList[1])
+            return (command, id)
+        elif(command == "T"):
+            if(len(inputList) != 1):
+                return [-1]
+            return (command)
+        else:
+            return [-1]
+    except EOFError:
+        return ["EOF"]
+
+
         
 
 
@@ -49,8 +74,19 @@ if __name__ == '__main__':
         exit(1)
     address = sys.argv[1]
     client = IntegrationClient(address)
-    client.get(1)
-    print(client.get(1))
-    client.registerIntegration("localhost", 5000, [2,3,4])
-    print(client.get(2))
-    print(client.close())
+    treatedInput = handleUserInput()
+
+    while(treatedInput[0] != "T"):
+        if(treatedInput[0] == "C"):
+            result = client.get(treatedInput[1])
+            print(result)
+        elif(treatedInput[0] == "EOF"):
+            exit(0)
+        else:
+            print("Invalid command")
+
+        treatedInput = handleUserInput()
+    
+    if(treatedInput[0] == "T"):
+        client.stopServer()
+        exit(0)
