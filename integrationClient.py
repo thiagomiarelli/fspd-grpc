@@ -22,7 +22,7 @@ class IntegrationClient(object):
         """
         message = pb2.GetIntegrationParams(id=id)
         result = self.stub.GetIntegration(message)
-        return (result.address, result.port)
+        return (result.description, result.value)
 
     def registerIntegration(self, address, port, ids):
         """
