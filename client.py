@@ -23,7 +23,10 @@ class DatabaseClient(object):
         """
         message = pb2.GetParams(id=id)
         result = self.stub.Get(message)
-        return (result.description, result.value)
+        if(result.description == "NA" and result.value == 0):
+            return -1
+        else:
+            return f'{result.description},{result.value}'
 
 
     def insert(self, id, description, value):
@@ -53,7 +56,7 @@ class DatabaseClient(object):
 
 def handleUserInput():
     try:
-        inputString = input("Enter your command: ")
+        inputString = input()
         inputList = inputString.split(",")
         
         if(len(inputList) < 1):
@@ -104,7 +107,7 @@ if __name__ == '__main__':
             print(result.existed)
         elif(treatedInput[0] == "C"):
             result = client.get(treatedInput[1])
-            print(result[0], result[1])
+            print(result)
         elif(treatedInput[0] == "R"):
             result = client.register(treatedInput[1], treatedInput[2])
             print(result.numOfIds)

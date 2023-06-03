@@ -37,7 +37,7 @@ class DatabaseService(pb2_grpc.DatabaseServicer):
         if request.id in self.data:
             return pb2.GetReturn(description=self.data[request.id][0], value=self.data[request.id][1])
         else:
-            return pb2.GetReturn(description=None, value=0.0)
+            return pb2.GetReturn(description="NA", value=0.0)
 
     def StopServer(self, request, context):
         """
