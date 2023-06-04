@@ -1,7 +1,7 @@
 import grpc
 import sys
-import database_pb2_grpc as pb2_grpc
-import database_pb2 as pb2
+import stubs.database_pb2_grpc as pb2_grpc
+import stubs.database_pb2 as pb2
 
 
 class DatabaseClient(object):
@@ -26,9 +26,8 @@ class DatabaseClient(object):
         if(result.description == "NA" and result.value == 0):
             return -1
         else:
-            return f'{result.description},{result.value}'
-
-
+            return str(result.description) + "%7.4f" % result.value
+            
     def insert(self, id, description, value):
         """
         Client function to call the rpc for Insert

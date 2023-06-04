@@ -1,7 +1,8 @@
 import grpc
 import sys
-import integration_pb2_grpc as pb2_grpc
-import integration_pb2 as pb2
+import stubs.integration_pb2_grpc as pb2_grpc
+import stubs.integration_pb2 as pb2
+from client import DatabaseClient
 
 class IntegrationClient(object):
     """
@@ -22,7 +23,15 @@ class IntegrationClient(object):
         """
         message = pb2.GetIntegrationParams(id=id)
         result = self.stub.GetIntegration(message)
-        return (result.description, result.value)
+
+        if(result.address == "NA" and result.port == 0):
+            return "NA,0"
+        else:
+            databaseServer = DatabaseClient(f'{result.address}:{result.port}')
+            result = databaseServer.get(id)
+            databaseServer.channel.close()
+        
+        return result
 
     def registerIntegration(self, address, port, ids):
         """
@@ -41,7 +50,7 @@ class IntegrationClient(object):
         return result
 
 def handleUserInput():
-    inputString = input("Enter your command: ")
+    inputString = input()
     inputList = inputString.split(",")
         
     try:

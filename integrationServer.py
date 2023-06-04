@@ -1,8 +1,8 @@
 import grpc
 import sys
 from concurrent import futures
-import integration_pb2_grpc as pb2_grpc
-import integration_pb2 as pb2
+import stubs.integration_pb2_grpc as pb2_grpc
+import stubs.integration_pb2 as pb2
 from client import DatabaseClient
 
 class IntegrationService(pb2_grpc.IntegrationServicer):
@@ -24,14 +24,11 @@ class IntegrationService(pb2_grpc.IntegrationServicer):
         """
         GetIntegration data from database
         """
-        if request.id in self.data:
-            databaseServer = DatabaseClient(f'{self.data[request.id][0]}:{self.data[request.id][1]}')
-            result = databaseServer.get(request.id)
-            databaseServer.channel.close()
-
-            return pb2.GetIntegrationReturn(description=result[0], value=result[1])
+        id = request.id
+        if id in self.data:
+            return pb2.GetIntegrationReturn(address=self.data[id][0], port=self.data[id][1])
         else:
-            return pb2.GetIntegrationReturn(description="NA", port=value)
+            return pb2.GetIntegrationReturn(address="NA", port=0)
 
     def RegisterIntegration(self, request, context):
         """

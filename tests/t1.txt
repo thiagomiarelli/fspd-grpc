@@ -1,0 +1,6 @@
+R,localhost,5556
+I,3,adicao 1,2.0
+I,4,hello world,0.0
+C,3
+I,3,cole cole,4.0
+R,localhost,5556

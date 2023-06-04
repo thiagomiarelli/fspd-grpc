@@ -24,8 +24,8 @@ message GetIntegrationParams{
 }
 
 message GetIntegrationReturn{
-    string description = 6;
-    float value = 7;
+    string address = 6;
+    int32 port = 7;
 }
 
 message StopIntegrationServerParams{}

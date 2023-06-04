@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import integration_pb2 as integration__pb2
+import stubs.integration_pb2 as integration__pb2
 
 
 class IntegrationStub(object):
