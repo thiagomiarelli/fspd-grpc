@@ -26,8 +26,8 @@ class DatabaseClient(object):
         if(result.description == "NA" and result.value == 0):
             return -1
         else:
-            return str(result.description) + "%7.4f" % result.value
-            
+            return str(result.description) + ",%7.4f" % result.value
+
     def insert(self, id, description, value):
         """
         Client function to call the rpc for Insert
