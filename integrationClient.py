@@ -24,8 +24,8 @@ class IntegrationClient(object):
         message = pb2.GetIntegrationParams(id=id)
         result = self.stub.GetIntegration(message)
 
-        if(result.address == "NA" and result.port == 0):
-            return "NA,0"
+        if(result.address == "ND" and result.port == 0):
+            return "ND,0.0000"
         else:
             databaseServer = DatabaseClient(f'{result.address}:{result.port}')
             result = databaseServer.get(id)

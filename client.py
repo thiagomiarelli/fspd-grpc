@@ -23,7 +23,7 @@ class DatabaseClient(object):
         """
         message = pb2.GetParams(id=id)
         result = self.stub.Get(message)
-        if(result.description == "NA" and result.value == 0):
+        if(result.description == "ND" and result.value == 0):
             return -1
         else:
             return str(result.description) + ",%7.4f" % result.value

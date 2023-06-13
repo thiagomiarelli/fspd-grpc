@@ -16,7 +16,6 @@ class DatabaseService(pb2_grpc.DatabaseServicer):
         self.server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
         pb2_grpc.add_DatabaseServicer_to_server(self, self.server)
         self.server.add_insecure_port('[::]:{}'.format(args[0]))
-        print("Server started on port {}".format(args[0]))
 
 
     def Insert(self, request, context):
@@ -37,7 +36,7 @@ class DatabaseService(pb2_grpc.DatabaseServicer):
         if request.id in self.data:
             return pb2.GetReturn(description=self.data[request.id][0], value=self.data[request.id][1])
         else:
-            return pb2.GetReturn(description="NA", value=0.0)
+            return pb2.GetReturn(description="ND", value=0.0)
 
     def StopServer(self, request, context):
         """

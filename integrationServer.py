@@ -8,13 +8,10 @@ from client import DatabaseClient
 class IntegrationService(pb2_grpc.IntegrationServicer):
 
     def __init__(self, *args, **kwargs):
-        self.data = {
-            1: ("localhost", 4000),
-        }
+        self.data = {}
         self.server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
         pb2_grpc.add_IntegrationServicer_to_server(self, self.server)
         self.server.add_insecure_port('[::]:{}'.format(args[0]))
-        print("Server started on port {}".format(args[0]))
 
     def serve(self):
         self.server.start()
@@ -28,7 +25,7 @@ class IntegrationService(pb2_grpc.IntegrationServicer):
         if id in self.data:
             return pb2.GetIntegrationReturn(address=self.data[id][0], port=self.data[id][1])
         else:
-            return pb2.GetIntegrationReturn(address="NA", port=0)
+            return pb2.GetIntegrationReturn(address="ND", port=0)
 
     def RegisterIntegration(self, request, context):
         """
