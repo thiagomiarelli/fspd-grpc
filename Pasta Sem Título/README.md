@@ -22,7 +22,7 @@ make run_serv_int arg=3001
 ```
 4. Executar o cliente do servidor de integração com o comando `make run_cli_int arg=<address><port>`, passando o endereço e porta. Exemplo:
 ```bash
-make run_cli_int arg=localhost:3001
+make run_cli_dir arg=localhost:3001
 ```
 
 ## Comandos

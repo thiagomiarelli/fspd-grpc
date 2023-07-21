@@ -1,0 +1,45 @@
+
+syntax = "proto3";
+
+package unary;
+
+service Database{
+    rpc Insert(InsertParams) returns (InsertReturn) {}
+    rpc Get(GetParams) returns (GetReturn) {}
+    rpc StopServer(StopServerParams) returns (StopServerReturn) {}
+    rpc Register(RegisterParams) returns (RegisterReturns) {}
+}
+
+message InsertParams{
+ int32 id = 1;
+ string description = 2;
+ float value = 3;
+}
+
+message InsertReturn{
+    int32 existed = 4;
+}
+
+message GetParams{
+    int32 id = 5;
+}
+
+message GetReturn{
+    string description = 6;
+    float value = 7;
+}
+
+message StopServerReturn{
+    int32 numOfKeys = 8;
+}
+
+message StopServerParams{}
+
+message RegisterParams{
+    string address = 9;
+    int32 port = 10;
+}
+
+message RegisterReturns{
+    int32 numOfIds = 11;
+}
