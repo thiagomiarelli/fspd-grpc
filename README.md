@@ -1,5 +1,5 @@
 # TP2 Fundamentos de Sistemas Paralelos e Distribuídos
-Essa aplicação implementa dois servidores e dois clientes utilizando gRPC.
+Essa aplicação implementa dois servidores e dois clientes utilizando gRPC. O primeiro par de servidor e cliente são os diretórios locais. O servidor de diretório armazena chaves com valores e descrições que podem ser criados e consultados pelo cliente do diretório local. O segundo par de cliente e servidor são os de integração. Eles recebem informação sobre os dados que estão em cada servidor e direcionam a busca do cliente para obter o dado no servidor correto. 
 
 ### Requisitos
 
